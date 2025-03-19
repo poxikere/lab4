@@ -15,17 +15,16 @@ let printTree (tree: Tree) =
     printTreeInternal tree 0
 
 let posik (n: int) (zam: int) : int =
-    let rec minHelper (num: int) (minSoFar: int) (k:float) (ac: float): int =
+    let rec posikrec (num: int) (minac: int) (k:float) (ac: float): int =
         if num = 0 then
-            let ytr = (10.**ac)*(float (zam - minSoFar))
+            let ytr = (10.**ac)*(float (zam - minac))
             int ytr
         else
             let num10 : int = num % 10
-            let newmin : int = min minSoFar num10
-            if newmin=num10 then minHelper (num / 10) newmin (k+1.) k
-            else minHelper (num / 10) newmin (k+1.) ac
-                 
-    n+minHelper n 9 0 0
+            let newmin : int = min minac num10
+            if newmin=num10 then posikrec (num / 10) newmin (k+1.) k
+            else posikrec (num / 10) newmin (k+1.) ac
+    n+posikrec n 9 0 0
     
 let rec mapTree (tree: Tree) (zam : int) : Tree =
     match tree with
