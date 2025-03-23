@@ -1,0 +1,40 @@
+open System
+type Tree =
+    | Лист of string
+    | Корень of string * Tree * Tree
+
+let printTree (tree: Tree) =
+    let rec printTreeInternal (tree: Tree) (k: int) =
+        let indentString = String.replicate k "|  "
+        match tree with
+        | Лист value -> printfn $"{indentString}|_ {value}"
+        | Корень (value, left, right) ->
+            printfn $"{indentString}|_ {value}"
+            printTreeInternal left (k + 1)
+            printTreeInternal right (k + 1)
+    printTreeInternal tree 0
+
+let posik (n: string) (v: string) : int =
+    match n.Contains(v) with
+    | true -> 1
+    | false -> 0
+
+let rec foldTree (tree: Tree) (v: string) : int =
+    match tree with
+    | Лист (str) -> posik str v
+    | Корень (str, left, right) -> posik str v + foldTree left v + foldTree right v
+
+let rec vvod x =
+    printf "Введите символ: "
+    let input = Console.ReadLine()
+    match input.Length = 1 with
+    | true -> input
+    | false ->
+        printfn "Некорректный ввод. Пожалуйста, введите символ."
+        vvod x
+
+let mytree = Корень("000", Корень("012", Лист("111"), Корень("123", Лист("222"), Лист("333"))), Корень("234", Лист("444"), Лист("4566")))
+let v = vvod()
+let chisl = foldTree mytree v
+printTree mytree
+printf "Количество узлов с '%s' в дереве: %i" v chisl
