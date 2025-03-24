@@ -21,9 +21,8 @@ let posik (n: int) (zam: int) : int =
             int ytr
         else
             let num10 : int = num % 10
-            let newmin : int = min minac num10
-            if newmin=num10 then posikrec (num / 10) newmin (k+1.) k
-            else posikrec (num / 10) newmin (k+1.) ac
+            if minac<=num10 then posikrec (num / 10) num10 (k+1.) k
+            else posikrec (num / 10) minac (k+1.) ac
     n+posikrec n 9 0 0
     
 let rec maptree (tree: Tree) (zam : int) : Tree =
@@ -46,4 +45,5 @@ let rec vvod x : int =
 let mytree = Корень(192, Корень(212, Лист(453), Лист(5884)), Корень(3330, Лист(6112), Лист(7092)))
 let newtree = maptree mytree (vvod())
 printtree mytree
+printfn""
 printtree newtree
