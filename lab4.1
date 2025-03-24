@@ -3,16 +3,16 @@ type Tree =
     | Лист of int
     | Корень of int * Tree * Tree
 
-let printTree (tree: Tree) =
-    let rec printTreeInternal (tree: Tree) (indent: int) =
-        let indentString = String.replicate indent "|  "
+let printtree (tree: Tree) =
+    let rec printtreerec (tree: Tree) (k: int) =
+        let kstring = String.replicate k "|  "
         match tree with
-        | Лист value -> printfn $"{indentString}|_ {value}"
+        | Лист value -> printfn $"{kstring}|_ {value}"
         | Корень (value, left, right) ->
-            printfn $"{indentString}|_ {value}"
-            printTreeInternal left (indent + 1)
-            printTreeInternal right (indent + 1)
-    printTreeInternal tree 0
+            printfn $"{kstring}|_ {value}"
+            printTreeInternal left (k + 1)
+            printTreeInternal right (k + 1)
+    printtreerec tree 0
 
 let posik (n: int) (zam: int) : int =
     let rec posikrec (num: int) (minac: int) (k:float) (ac: float): int =
@@ -26,11 +26,11 @@ let posik (n: int) (zam: int) : int =
             else posikrec (num / 10) newmin (k+1.) ac
     n+posikrec n 9 0 0
     
-let rec mapTree (tree: Tree) (zam : int) : Tree =
+let rec maptree (tree: Tree) (zam : int) : Tree =
     match tree with
     | Лист (num) -> Лист (posik num zam)
     | Корень (num, left, right) ->
-        Корень (posik num zam, mapTree left zam, mapTree right zam)
+        Корень (posik num zam, maptree left zam, maptree right zam)
 
 let rec vvod x : int =
     printf "Введите цифру: "
@@ -44,6 +44,6 @@ let rec vvod x : int =
         vvod x
 
 let mytree = Корень(192, Корень(212, Лист(453), Лист(5884)), Корень(3330, Лист(6112), Лист(7092)))
-let newtree = mapTree mytree (vvod())
-printTree mytree
-printTree newtree
+let newtree = maptree mytree (vvod())
+printtree mytree
+printtree newtree
