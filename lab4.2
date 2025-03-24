@@ -7,9 +7,9 @@ let printtree (tree: Tree) =
     let rec printtreerec (tree: Tree) (k: int) =
         let kstring = String.replicate k "|  "
         match tree with
-        | Лист value -> printfn $"{kstring}|_ {value}"
+        | Лист value -> printfn "%s|_ %s" kstring value
         | Корень (value, left, right) ->
-            printfn $"{kstring}|_ {value}"
+            printfn "%s|_ %s" kstring value
             printTreeInternal left (k + 1)
             printTreeInternal right (k + 1)
     printtreerec tree 0
