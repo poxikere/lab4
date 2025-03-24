@@ -21,7 +21,7 @@ let posik (n: int) (zam: int) : int =
             int ytr
         else
             let num10 : int = num % 10
-            if minac<=num10 then posikrec (num / 10) num10 (k+1.) k
+            if minac>=num10 then posikrec (num / 10) num10 (k+1.) k
             else posikrec (num / 10) minac (k+1.) ac
     n+posikrec n 9 0 0
     
