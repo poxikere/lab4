@@ -3,26 +3,26 @@ type Tree =
     | Лист of string
     | Корень of string * Tree * Tree
 
-let printTree (tree: Tree) =
-    let rec printTreeInternal (tree: Tree) (k: int) =
-        let indentString = String.replicate k "|  "
+let printtree (tree: Tree) =
+    let rec printtreerec (tree: Tree) (k: int) =
+        let kstring = String.replicate k "|  "
         match tree with
-        | Лист value -> printfn $"{indentString}|_ {value}"
+        | Лист value -> printfn $"{kstring}|_ {value}"
         | Корень (value, left, right) ->
-            printfn $"{indentString}|_ {value}"
+            printfn $"{kstring}|_ {value}"
             printTreeInternal left (k + 1)
             printTreeInternal right (k + 1)
-    printTreeInternal tree 0
+    printtreerec tree 0
 
 let posik (n: string) (v: string) : int =
     match n.Contains(v) with
     | true -> 1
     | false -> 0
 
-let rec foldTree (tree: Tree) (v: string) : int =
+let rec foldtree (tree: Tree) (v: string) : int =
     match tree with
     | Лист (str) -> posik str v
-    | Корень (str, left, right) -> posik str v + foldTree left v + foldTree right v
+    | Корень (str, left, right) -> posik str v + foldtree left v + foldtree right v
 
 let rec vvod x =
     printf "Введите символ: "
@@ -35,6 +35,6 @@ let rec vvod x =
 
 let mytree = Корень("000", Корень("012", Лист("111"), Корень("123", Лист("222"), Лист("333"))), Корень("234", Лист("444"), Лист("4566")))
 let v = vvod()
-let chisl = foldTree mytree v
-printTree mytree
+let chisl = foldtree mytree v
+printtree mytree
 printf "Количество узлов с '%s' в дереве: %i" v chisl
